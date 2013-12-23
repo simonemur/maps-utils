@@ -1,0 +1,32 @@
+CREATE TABLE airports
+(
+  id numeric,
+	ident character varying,
+	type character varying,
+	name character varying,
+	latitude_deg numeric,
+	longitude_deg numeric,
+	elevation_ft numeric,
+	continent character varying,
+	iso_country character varying,
+	iso_region character varying,
+	municipality character varying,
+	scheduled_service character varying,
+	gps_code character varying,
+	iata_code character varying,
+	local_code character varying,
+	home_link character varying,
+	wikipedia_link character varying,
+	keywords character varying
+);
+
+
+COPY airports FROM 'airports.csv' DELIMITER ',' CSV HEADER;
+
+SELECT AddGeometryColumn ('airports','the_geom',4326,'POINT',2); 
+
+UPDATE airports SET the_geom = ST_GeomFromText('POINT(' || longitude_deg || ' ' || latitude_deg || ')',4326);
+
+
+CQL FILTER: 
+type IN ('large_airport')
