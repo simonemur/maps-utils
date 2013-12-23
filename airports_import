@@ -1,6 +1,6 @@
 CREATE TABLE airports
 (
-  id numeric,
+  	id numeric,
 	ident character varying,
 	type character varying,
 	name character varying,
